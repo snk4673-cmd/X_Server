@@ -6,7 +6,7 @@ const app = express();
 
 app.use(express.json());
 
-app.use("/post"), postsRouter;
+app.use("/post", postsRouter);
 app.use("/auth", authRouter);
 
 app.use((req, res, next) => {
