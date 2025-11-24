@@ -65,3 +65,7 @@ export async function findByUserid(userid) {
   const user = users.find((user) => user.userid === userid);
   return user;
 }
+
+export async function findById(id) {
+  return users.find((user) => user.id === id);
+}
