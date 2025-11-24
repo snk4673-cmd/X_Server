@@ -28,7 +28,7 @@ const validateSignup = [
 ];
 
 //  회원 가입
-router.post("/singup", validateSignup, authController.signup);
+router.post("/signup", validateSignup, authController.signup);
 
 //  로그인
 router.post("/login", validateLogin, authController.login);

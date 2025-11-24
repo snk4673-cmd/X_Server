@@ -7,19 +7,25 @@ function required(key, defaultValue = undefined) {
   if (value == null) {
     throw new Error(`키 ${key}는 undefined!!`);
   }
-
   return value;
 }
 
 export const config = {
   jwt: {
     secretKey: required("JWT_SECRET"),
-    expiresInSec: parseInt(required("JWT_EXPRESS_SEC")),
+    expiresInSec: parseInt(required("JWT_EXPIRES_SEC")),
   },
-  bcypt: {
+  bcrypt: {
     saltRounds: parseInt(required("BCRYPT_SALT_ROUNDS", 12)),
   },
   host: {
     port: parseInt(required("HOST_PORT", 9090)),
+  },
+  db: {
+    host: required("DB_HOST"),
+    user: required("DB_USER"),
+    password: required("DB_PASSWORD"),
+    database: required("DB_DATABASE"),
+    port: required("DB_PORT"),
   },
 };
