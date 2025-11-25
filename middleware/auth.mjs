@@ -8,7 +8,7 @@ export const isAuth = async (req, res, next) => {
   const authHeader = req.get("Authorization");
   console.log(authHeader);
 
-  if (authHeader && authHeader.startsWith("Bearer ")) {
+  if (!(authHeader && authHeader.startsWith("Bearer "))) {
     console.log("헤더 에러");
     return res.status(401).json(AUTH_ERROR);
   }

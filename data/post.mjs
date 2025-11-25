@@ -19,7 +19,7 @@ export async function getAllByUserid(userid) {
 // 글 번호(id)에 대한 포스트를 리턴
 export async function getById(id) {
   return db
-    .execute(`${SELCT_JOIN} where p.id?`, [id])
+    .execute(`${SELECT_JOIN} where p.id=?`, [id])
     .then((result) => result[0][0]);
 }
 
