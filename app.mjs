@@ -2,7 +2,7 @@ import express from "express";
 import postsRouter from "./router/posts.mjs";
 import authRouter from "./router/auth.mjs";
 import { config } from "./config.mjs";
-import { connectDB } from "./db/database.mjs";
+//import { db } from "./db/database.mjs";
 
 const app = express();
 
@@ -16,7 +16,4 @@ app.use((req, res, next) => {
 });
 
 //db.getConnection().then((connection) => console.log(connection));
-connectDB().then(() => {
-  app.listen();
-});
 app.listen(config.host.port);
