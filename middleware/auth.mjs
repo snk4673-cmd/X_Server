@@ -15,7 +15,7 @@ export const isAuth = async (req, res, next) => {
 
   // Authorization:Bearer QEWRASDFDSAFSADFASDFD==
   const token = authHeader.split(" ")[1];
-  console.log("토큰 분리 성공", token);
+  // console.log("토큰 분리 성공", token);
 
   jwt.verify(token, config.jwt.secretKey, async (error, decoded) => {
     if (error) {
@@ -23,14 +23,14 @@ export const isAuth = async (req, res, next) => {
       return res.status(401).json(AUTH_ERROR);
     }
     console.log(decoded);
-    const user = await authRepository.findById(decoded.idx);
+    const user = await authRepository.findById(decoded.id);
     if (!user) {
       console.log("아이디 없음");
       return res.status(401).json(AUTH_ERROR);
     }
-    console.log("user.idx: ", user.idx);
+    console.log("user.id: ", user.id);
     console.log("user.userid: ", user.userid);
-    req.idx = user.idx;
+    req.userid = user.userid;
     next();
   });
 };
