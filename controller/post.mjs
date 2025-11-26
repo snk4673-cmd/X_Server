@@ -31,7 +31,7 @@ export async function createPost(req, res, next) {
 export async function updatePost(req, res, next) {
   const id = req.params.id;
   const text = req.body.text;
-  const post = await posrRepository.getById(id);
+  const post = await postRepository.getById(id);
   if (!post) {
     res.status(404).json({ message: `${id}의 포스트가 없습니다` });
   }
