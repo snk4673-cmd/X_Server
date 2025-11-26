@@ -1,12 +1,18 @@
-import mysql from "mysql2";
 import { config } from "../config.mjs";
+import MongoDB from "mongodb";
 
-const pool = mysql.createPool({
-  host: config.db.host,
-  user: config.db.user,
-  database: config.db.database,
-  password: config.db.password,
-  port: config.db.port,
-});
+let db;
 
-export const db = pool.promise();
+export async function connectDB() {
+  return MongoDB.MongoClient.connect(config.db.host).then((client) => {
+    db = client.db("aidetect");
+  });
+}
+
+export function getUsers() {
+  return db.collection("users");
+}
+
+export function getPosts() {
+  return db.collection("posts");
+}

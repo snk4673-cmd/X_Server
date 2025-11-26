@@ -7,7 +7,7 @@ import { isAuth } from "../middleware/auth.mjs";
 const router = express.Router();
 
 const validatePost = [
-  body("text").trim().isLength({ min: 3 }).withMessage("최소 4자 이상 입력"),
+  body("text").trim().isLength({ min: 4 }).withMessage("최소 4자이상 입력"),
   validate,
 ];
 
