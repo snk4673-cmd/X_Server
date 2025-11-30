@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <title>SNS 메인</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: "Segoe UI", sans-serif;
+        background: #f2f3f7;
+      }
+
+      .container {
+        max-width: 800px;
+        margin: 30px auto;
+        padding: 0 16px 40px;
+        box-sizing: border-box;
+      }
+
+      /* 상단 헤더 */
+      .main-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 24px;
+        padding: 16px 20px;
+        background: #6c63ff;
+        color: #fff;
+        border-radius: 12px;
+        box-shadow: 0 3px 12px rgba(0, 0, 0, 0.12);
+      }
+
+      .main-header h1 {
+        margin: 0;
+        font-size: 1.4rem;
+      }
+
+      .header-right {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      #welcome-text {
+        font-size: 0.95rem;
+        opacity: 0.9;
+      }
+
+      #logout-btn {
+        padding: 6px 12px;
+        border: none;
+        border-radius: 8px;
+        background: #fff;
+        color: #6c63ff;
+        font-weight: 600;
+        cursor: pointer;
+      }
+
+      #logout-btn:hover {
+        background: #f0f0ff;
+      }
+
+      /* 공통 섹션 카드 스타일 */
+      section {
+        background: #ffffff;
+        padding: 16px 20px;
+        border-radius: 12px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+        margin-bottom: 20px;
+      }
+
+      section h2 {
+        margin-top: 0;
+        margin-bottom: 12px;
+        font-size: 1.1rem;
+        color: #333;
+      }
+
+      /* 글 작성 */
+      #post-form textarea {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 10px 12px;
+        border-radius: 10px;
+        border: 1px solid #ccc;
+        resize: vertical;
+        font-size: 0.95rem;
+      }
+
+      #post-form textarea:focus {
+        outline: none;
+        border-color: #6c63ff;
+        box-shadow: 0 0 0 2px rgba(108, 99, 255, 0.2);
+      }
+
+      #post-form button {
+        margin-top: 10px;
+        width: 100%;
+        padding: 10px 0;
+        border: none;
+        border-radius: 8px;
+        background: #6c63ff;
+        color: #fff;
+        font-weight: 600;
+        cursor: pointer;
+      }
+
+      #post-form button:hover {
+        background: #5a54d6;
+      }
+
+      #post-message {
+        margin-top: 8px;
+        font-size: 0.9rem;
+      }
+
+      /* 검색 */
+      #search-section input {
+        width: calc(100% - 90px);
+        padding: 8px 10px;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        box-sizing: border-box;
+        font-size: 0.95rem;
+      }
+
+      #search-section input:focus {
+        outline: none;
+        border-color: #6c63ff;
+        box-shadow: 0 0 0 2px rgba(108, 99, 255, 0.2);
+      }
+
+      #search-section button {
+        margin-left: 8px;
+        padding: 8px 14px;
+        border-radius: 8px;
+        border: none;
+        background: #333;
+        color: #fff;
+        cursor: pointer;
+        font-size: 0.9rem;
+      }
+
+      #search-section button:hover {
+        background: #555;
+      }
+
+      /* 게시글 목록 */
+      #posts-list {
+        list-style: none;
+        padding-left: 0;
+        margin: 0;
+      }
+
+      #posts-list li {
+        padding: 12px 0;
+        border-bottom: 1px solid #eee;
+      }
+
+      #posts-list li:last-child {
+        border-bottom: none;
+      }
+
+      /* main.js에서 넣은 클래스들 */
+      .post-meta {
+        font-size: 0.85rem;
+        color: #777;
+        margin-bottom: 4px;
+      }
+
+      .post-content {
+        font-size: 0.95rem;
+        color: #333;
+        margin-bottom: 6px;
+        white-space: pre-wrap;
+      }
+
+      #posts-list button {
+        padding: 4px 10px;
+        border: none;
+        border-radius: 6px;
+        background: #ff6b6b;
+        color: #fff;
+        font-size: 0.8rem;
+        cursor: pointer;
+      }
+
+      #posts-list button:hover {
+        background: #e05454;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <!-- 상단 헤더 -->
+      <header class="main-header">
+        <h1>SNS 메인</h1>
+        <div class="header-right">
+          <span id="welcome-text"></span>
+          <button id="logout-btn">로그아웃</button>
+        </div>
+      </header>
+
+      <!-- 새 글 작성 섹션 -->
+      <section id="post-create">
+        <h2>새 글 쓰기</h2>
+        <form id="post-form">
+          <textarea
+            name="text"
+            rows="3"
+            placeholder="지금 무슨 생각을 하고 계신가요?"
+            required
+          ></textarea>
+          <br />
+          <button type="submit">등록</button>
+        </form>
+        <p id="post-message"></p>
+      </section>
+
+      <!-- 검색 섹션 -->
+      <section id="search-section">
+        <h2>게시글 검색</h2>
+        <input
+          type="text"
+          id="search-input"
+          placeholder="아이디 / 이름 / 내용으로 검색"
+        />
+        <button id="search-btn">검색</button>
+      </section>
+
+      <section id="posts-section">
+        <h2>게시글 목록</h2>
+        <ul id="posts-list"></ul>
+      </section>
+    </div>
+
+    <script src="./js/api.js"></script>
+    <script src="./js/main.js"></script>
+  </body>
+</html>
