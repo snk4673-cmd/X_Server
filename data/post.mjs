@@ -16,16 +16,12 @@ const postSchema = new mongoose.Schema(
 useVirtualId(postSchema);
 const Post = mongoose.model("Post", postSchema);
 
-// import { getPosts } from "../db/database.mjs";
-
-// const ObjectID = MongoDB.ObjectId;
-
 // 모든 포스트를 리턴
 export async function getAll() {
-  return Post.find().sort({ createAt: -1 });
+  return Post.find().sort({ createdAt: -1 });
 }
 
-// // 사용자 아이디(userid)에 대한 포스트를 리턴
+// 사용자 아이디(userid)에 대한 포스트를 리턴
 export async function getAllByUserid(userid) {
   return Post.find({ userid }).sort({ createdAt: -1 });
 }
